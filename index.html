@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujayy All Store</title>
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --bg-dark: #000000;
+            --bg-card: #111111;
+            --bg-input: #1a1a1a;
+            --primary: #ffffff; /* White */
+            --primary-hover: #cccccc; /* Light Gray */
+            --accent: #ffffff; 
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --border: #333333;
+            --radius: 12px;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            --danger: #ffffff; /* White for B&W theme */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.5; padding-bottom: 60px; overflow-x: hidden; }
+
+        /* --- UTILITIES --- */
+        .container { max-width: 900px; margin: 0 auto; padding: 0 15px; position: relative; z-index: 2; }
+        .text-primary { color: var(--text-main); }
+        .text-accent { color: var(--text-main); font-weight: bold; }
+        .text-center { text-align: center; }
+        .hidden { display: none !important; }
+        .flex-center { display: flex; justify-content: center; align-items: center; }
+
+        /* --- HEADER --- */
+        header { background-color: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); padding: 15px 0; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; color: #fff; }
+        .logo span { opacity: 0.7; }
+
+        /* --- NAVIGATION TABS --- */
+        .nav-tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 25px 0; background: var(--bg-card); padding: 8px; border-radius: var(--radius); border: 1px solid var(--border); }
+        .tab-btn { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 10px 18px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.3s; border-radius: 8px; }
+        .tab-btn:hover { color: var(--text-main); border-color: #666; }
+        .tab-btn.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); }
+
+        /* --- SECTIONS --- */
+        .section-card { background: var(--bg-card); padding: 25px; border-radius: var(--radius); border: 1px solid var(--border); animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { margin-bottom: 20px; font-size: 1.4rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; color: #fff; }
+        h3 { margin-bottom: 15px; font-size: 1.1rem; color: var(--text-main); font-weight: 600; }
+
+        /* --- BRAND SELECTOR --- */
+        .brand-toggle { display: flex; gap: 15px; margin-bottom: 25px; }
+        .brand-btn { flex: 1; padding: 15px; background: var(--bg-input); border: 1px solid var(--border); color: var(--text-muted); border-radius: var(--radius); cursor: pointer; font-weight: 700; transition: 0.3s; font-size: 0.95rem; text-align: center; }
+        .brand-btn.active { border-color: var(--primary); color: #fff; background: #222; }
+
+        /* --- PRICING CARDS --- */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .price-card { background: var(--bg-input); padding: 18px 10px; border-radius: var(--radius); cursor: pointer; border: 1px solid var(--border); text-align: center; transition: 0.2s; position: relative; overflow: hidden; }
+        .price-card:hover { background: #222; border-color: #666; }
+        .price-card.selected { border-color: var(--primary); background: #1a1a1a; }
+        .price-card.selected::after { content: "✔"; position: absolute; top: 5px; right: 8px; color: var(--primary); font-size: 0.8rem; }
+        
+        .duration { font-weight: 800; font-size: 1.1rem; display: block; margin-bottom: 5px; color: white; }
+        .price { color: var(--primary); font-weight: 600; font-size: 0.95rem; }
+        .price-usd { color: var(--text-muted); font-size: 0.8rem; display: block; margin-top: 3px; }
+
+        /* --- GAME LIST --- */
+        .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; max-height: 450px; overflow-y: auto; padding-right: 5px; }
+        .game-grid::-webkit-scrollbar { width: 6px; }
+        .game-grid::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        
+        .game-item { background: var(--bg-input); padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: 0.2s; border: 1px solid var(--border); }
+        .game-item:hover { border-color: #888; background: #222; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        /* B&W STATUS DOTS */
+        .dot-green { background-color: #ffffff; box-shadow: 0 0 8px rgba(255,255,255,0.3); } /* Safe -> White */
+        .dot-yellow { background-color: #888888; box-shadow: 0 0 8px rgba(136,136,136,0.3); } /* Risk -> Gray */
+        .dot-red { background-color: #444444; box-shadow: 0 0 8px rgba(0,0,0,0.5); border:1px solid #666; } /* Maint -> Dark Gray */
+        
+        .game-name { font-size: 0.9rem; font-weight: 500; }
+
+        /* --- JOKGEN --- */
+        .map-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 25px; }
+        .map-item { background: var(--bg-input); padding: 15px; border-radius: var(--radius); display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); }
+        .map-item:hover { border-color: #888; }
+        .checkbox-wrapper { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
+        .map-price { color: #fff; font-weight: 700; }
+        input[type="checkbox"] { accent-color: #fff; width: 18px; height: 18px; cursor: pointer; }
+
+        .note-box { background: #1a1a1a; border-left: 4px solid #666; padding: 15px; margin-bottom: 25px; font-size: 0.9rem; border-radius: 0 var(--radius) var(--radius) 0; }
+        .note-box ul { padding-left: 20px; margin-top: 8px; }
+        .note-box li { margin-bottom: 6px; color: #ccc; list-style-type: square; }
+
+        /* --- INPUTS & BUTTONS --- */
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+        select, input[type="text"], input[type="number"] { width: 100%; padding: 14px; background: var(--bg-input); border: 1px solid var(--border); color: white; border-radius: var(--radius); font-size: 1rem; outline: none; transition: 0.3s; }
+        select:focus, input:focus { border-color: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1); }
+
+        .btn-action { width: 100%; padding: 16px; background: #fff; color: #000; border: none; border-radius: var(--radius); font-size: 1rem; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-top: 10px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; letter-spacing: 0.5px; }
+        .btn-action:hover { background: #ccc; transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1); }
+        
+        .btn-outline { background: transparent; border: 1px solid #666; color: #ccc; margin-top: 0; margin-bottom: 20px; font-weight: 600; font-size: 0.9rem; padding: 10px; }
+        .btn-outline:hover { border-color: #fff; color: #fff; }
+
+        .total-display { background: #1a1a1a; padding: 18px 20px; border-radius: var(--radius); margin-top: 25px; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 700; border: 1px solid var(--border); }
+
+        /* --- MODAL (FEATURES) --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); padding: 15px; }
+        .modal-content { background: var(--bg-card); padding: 0; width: 100%; max-width: 550px; max-height: 85vh; overflow: hidden; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 10px 40px rgba(0,0,0,0.8); display: flex; flex-direction: column; }
+        
+        .modal-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--bg-input); }
+        .modal-title { font-size: 1.1rem; font-weight: 700; color: #fff; }
+        .close-modal { background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; line-height: 1; }
+        .close-modal:hover { color: #fff; }
+
+        .modal-body { padding: 20px; overflow-y: auto; }
+        
+        /* Clean Feature List Styling */
+        .feature-section { margin-bottom: 20px; }
+        .feature-section:last-child { margin-bottom: 0; }
+        .feature-cat { display: block; color: #fff; font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #333; text-transform: uppercase; letter-spacing: 0.5px; }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 15px; font-size: 0.85rem; color: var(--text-muted); }
+        .feature-item { display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; }
+        .feature-item::before { content: "•"; color: #fff; font-weight: bold; font-size: 1.1em; line-height: 1; margin-top: 1px; }
+
+        /* --- INTRO OVERLAY (POPUP WARNING) --- */
+        #intro-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px;
+        }
+        .intro-box {
+            background: var(--bg-card);
+            width: 100%; max-width: 600px;
+            max-height: 90vh;
+            border-radius: 16px;
+            border: 1px solid #fff;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+            display: flex; flex-direction: column;
+            overflow: hidden;
+        }
+        .intro-header {
+            background: #fff;
+            color: #000;
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.2rem;
+        }
+        .intro-body {
+            padding: 25px;
+            overflow-y: auto;
+            color: #ddd;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .intro-body p { margin-bottom: 15px; }
+        .intro-body strong { color: #fff; }
+        .intro-list { padding-left: 20px; margin-bottom: 15px; }
+        .intro-list li { margin-bottom: 8px; color: #aaa; }
+        .intro-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            background: var(--bg-input);
+        }
+        .btn-enter {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-enter:hover { background: #ccc; transform: scale(1.05); }
+
+        /* --- FOOTER --- */
+        footer { text-align: center; margin-top: 50px; color: var(--text-muted); font-size: 0.8rem; opacity: 0.6; }
+
+        /* Responsive Feature Grid for Mobile */
+        @media (max-width: 400px) { .feature-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <!-- INTRO POPUP OVERLAY -->
+    <div id="intro-overlay">
+        <div class="intro-box">
+            <div class="intro-header">⚠️ WARNING / INFORMATION</div>
+            <div class="intro-body">
+                <p>Playing with any type of cheats is <strong>only for fun</strong> and <strong>100% your responsibility</strong>. Whatever the brand of the hack or the developer, all leads to a ban.</p>
+                <p>If you don't want to get banned, just don't play with hacks.</p>
+                <p>I know these words might upset some liars and scammers, but we don't care.</p>
+                
+                <p><strong>You have to follow these tips:</strong></p>
+                <ol class="intro-list">
+                    <li>You have to follow the files channel of the hack and <strong>pin it</strong> to see any update or warning.</li>
+                    <li>Play like a professional: play safely and avoid reports as much as you can.</li>
+                    <li>Never give your key to anyone except the developer or your reseller.</li>
+                    <li>Don't use any files that are not in the files channel.</li>
+                    <li>You have to know that any hack does updates, and that may take a few hours, a day, or more. We always extend the key to compensate for your subscription.</li>
+                    <li>Follow any advice or tip that I post in the files channel and never neglect it.</li>
+                    <li>If there is any internal update, whatever the hack you play with, instantly log out of your account and start testing for 5 games.</li>
+                </ol>
+
+                <p style="text-align:center; color: #fff; font-weight:800; font-size:1.1rem; border-top:1px solid #333; padding-top:15px;">
+                    NO REFUND POLICY 🚫
+                </p>
+            </div>
+            <div class="intro-footer">
+                <button class="btn-enter" onclick="closeIntro()">I UNDERSTAND, ENTER STORE</button>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container text-center">
+            <div class="logo">Ujayy<span>yyyyy</span></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('tab-gag')">Buy Cheat GNG</button>
+            <button class="tab-btn" onclick="switchTab('tab-allgames')">Buy Cheat All Game</button>
+            <button class="tab-btn" onclick="switchTab('tab-jokgen')">Jokgen GNG</button>
+            <button class="tab-btn" onclick="switchTab('tab-acc')">Buy Acc GNG</button>
+            <button class="tab-btn" onclick="switchTab('tab-rekber')">Jasa Rekber All Game</button>
+        </nav>
+
+        <!-- TAB 1: GOLD AND GLORY CHEATS -->
+        <section id="tab-gag" class="section-card">
+            <h2>Buy Cheat Gold And Glory</h2>
+            
+            <div class="brand-toggle">
+                <button class="brand-btn active" onclick="selectBrand('deadly', this)">4 𝖉𝖊𝖆𝖉𝖑𝖞♱𝖘𝖎𝖓𝖘</button>
+                <button class="brand-btn" onclick="selectBrand('g3store', this)">G3 Store</button>
+            </div>
+
+            <!-- Brand: 4 Deadly Sins -->
+            <div id="brand-deadly">
+                <button class="btn-action btn-outline" onclick="openModal('deadly')">📋 Lihat Fitur Lengkap</button>
+                
+                <h3>Pilih Durasi</h3>
+                <div class="pricing-grid">
+                    <div class="price-card" onclick="selectPrice(this, '50.000', '5 DAY')">
+                        <span class="duration">5 DAY</span>
+                        <span class="price">IDR 50k</span>
+                        <span class="price-usd">($3)</span>
+                    </div>
+                    <div class="price-card" onclick="selectPrice(this, '75.000', '10 DAY')">
+                        <span class="duration">10 DAY</span>
+                        <span class="price">IDR 75k</span>
+                        <span class="price-usd">($8)</span>
+                    </div>
+                    <div class="price-card" onclick="selectPrice(this, '150.000', '1 MONTH')">
+                        <span class="duration">1 MONTH</span>
+                        <span class="price">IDR 150k</span>
+                        <span class="price-usd">($10)</span>
+                    </div>
+                    <div class="price-card" onclick="selectPrice(this, '330.000', '1 SEASON')">
+                        <span class="duration">1 SEASON</span>
+                        <span class="price">IDR 330k</span>
+                        <span class="price-usd">($21)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand: G3 Store -->
+            <div id="brand-g3store" class="hidden">
+                <button class="btn-action btn-outline" onclick="openModal('g3')">📋 Lihat Fitur Lengkap</button>
+
+                <h3>Pilih Durasi</h3>
+                <div class="pricing-grid">
+                    <div class="price-card" onclick="selectPrice(this, '30.000', '3 DAY')">
+                        <span class="duration">3 DAY</span>
+                        <span class="price">IDR 30k</span>
+                        <span class="price-usd">($2)</span>
+                    </div>
+                    <div class="price-card" onclick="selectPrice(this, '45.000', '5 DAY')">
+                        <span class="duration">5 DAY</span>
+                        <span class="price">IDR 45k</span>
+                        <span class="price-usd">($3)</span>
+                    </div>
+                    <div class="price-card" onclick="selectPrice(this, '75.000', '10 DAY')">
+                        <span class="duration">10 DAY</span>
+                        <span class="price">IDR 75k</span>
+                        <span class="price-usd">($5)</span>
+                    </div>
+                    <div class="price-card" onclick="selectPrice(this, '150.000', '1 MONTH')">
+                        <span class="duration">1 MONTH</span>
+                        <span class="price">IDR 150k</span>
+                        <span class="price-usd">($10)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculator Result -->
+            <div class="total-display">
+                <span>Total Harga:</span>
+                <span class="text-accent" id="gag-total">Rp 0</span>
+            </div>
+            
+            <button class="btn-action" onclick="checkoutWa('gag')">
+                Lanjut Pembayaran <span>➔</span>
+            </button>
+        </section>
+
+        <!-- TAB 2: ALL GAME CHEATS -->
+        <section id="tab-allgames" class="section-card hidden">
+            <h2>
+                Buy Cheat All Game 
+                <span style="font-size:0.8rem; font-weight:400; color:var(--text-muted);">Click to Order</span>
+            </h2>
+            
+            <div style="display:flex; gap:15px; margin-bottom:20px; font-size:0.85rem; color:var(--text-muted); background:var(--bg-input); padding:10px; border-radius:8px; justify-content:center;">
+                <span class="flex-center" style="gap:6px;"><div class="status-dot dot-green"></div> Safe / Stable</span>
+                <span class="flex-center" style="gap:6px;"><div class="status-dot dot-yellow"></div> Risk / Ban</span>
+                <span class="flex-center" style="gap:6px;"><div class="status-dot dot-red"></div> Maintenance</span>
+            </div>
+
+            <div class="game-grid">
+                <!-- Generated via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 3: JOKGEN -->
+        <section id="tab-jokgen" class="section-card hidden">
+            <h2>Joki Gendong (Gold And Glory)</h2>
+            
+            <div class="note-box">
+                <strong style="color:#fff;">Note Penting:</strong>
+                <ul>
+                    <li>Mati kesalahan buyer? (No Rematch)</li>
+                    <li>Mati kesalahan Worker? (FULL 100% REMATCH)</li>
+                    <li>Loot All Sampe Tas Penuh.</li>
+                    <li>Set Dibawain worker (Bisa 3x Set).</li>
+                    <li>Minimal Rating Equipment (25.000).</li>
+                    <li>Jangan Looting Duluan jika item tidak mau pecah.</li>
+                </ul>
+            </div>
+
+            <h3>Pilih Map</h3>
+            <div class="map-list">
+                <div class="map-item">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="jokgen-check" value="9000" data-name="Map Challenge">
+                        <span>Map Challenge</span>
+                    </label>
+                    <span class="map-price">9k</span>
+                </div>
+                <div class="map-item">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="jokgen-check" value="12000" data-name="Map Inferno">
+                        <span>Map Inferno</span>
+                    </label>
+                    <span class="map-price">12k</span>
+                </div>
+                <div class="map-item">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="jokgen-check" value="10000" data-name="Map Dcp Challenge">
+                        <span>Map Dcp Challenge</span>
+                    </label>
+                    <span class="map-price">10k</span>
+                </div>
+            </div>
+
+            <!-- JUMLAH MATCH INPUT -->
+            <div class="input-group">
+                <label>Jumlah Match</label>
+                <input type="number" id="jokgen-matches" value="1" min="1" oninput="calculateJokgen()">
+            </div>
+
+            <div class="total-display">
+                <span>Total Estimasi:</span>
+                <span class="text-accent" id="jokgen-total">Rp 0</span>
+            </div>
+            
+            <!-- USERNAME INPUT -->
+            <div class="input-group">
+                <label>Username Game (Wajib diisi)</label>
+                <input type="text" id="jokgen-ign" placeholder="Masukkan Username Game">
+            </div>
+
+            <button class="btn-action" onclick="checkoutWa('jokgen')">
+                Order Jokgen <span>➔</span>
+            </button>
+        </section>
+
+        <!-- TAB 4: BUY ACC LVL -->
+        <section id="tab-acc" class="section-card hidden">
+            <h2>Buy Acc Lvl 8 - 17</h2>
+            <p style="margin-bottom:20px; color:var(--text-muted);">Pilih level akun yang diinginkan, harga akan dikonfirmasi via WhatsApp.</p>
+            
+            <div class="input-group">
+                <label>Pilih Level Akun</label>
+                <select id="acc-level-select">
+                    <option value="" disabled selected>-- Pilih Level --</option>
+                    <option value="Level 8">Level 8</option>
+                    <option value="Level 9">Level 9</option>
+                    <option value="Level 10">Level 10</option>
+                    <option value="Level 11">Level 11</option>
+                    <option value="Level 12">Level 12</option>
+                    <option value="Level 13">Level 13</option>
+                    <option value="Level 14">Level 14</option>
+                    <option value="Level 15">Level 15</option>
+                    <option value="Level 16">Level 16</option>
+                    <option value="Level 17">Level 17</option>
+                </select>
+            </div>
+
+            <button class="btn-action" onclick="checkoutWa('acc')">
+                Tanya Harga & Beli <span>➔</span>
+            </button>
+        </section>
+
+        <!-- TAB 5: REKBER -->
+        <section id="tab-rekber" class="section-card hidden">
+            <h2>Jasa Rekber (Rekening Bersama)</h2>
+            <div class="note-box" style="border-left-color: #888; background: #1a1a1a;">
+                <strong style="color:#fff;">Fee / Tax Structure:</strong>
+                <ul style="color: #ccc; margin-top:8px;">
+                    <li>0k - 100k : 4k</li>
+                    <li>101k - 250k : 8k</li>
+                    <li>250k - 500k : 12k</li>
+                    <li>500k - 1jt : 20k</li>
+                </ul>
+            </div>
+
+            <div class="input-group">
+                <label>Nominal Transaksi (IDR)</label>
+                <input type="number" id="rekber-amount" placeholder="Contoh: 150000" oninput="calculateRekber()">
+            </div>
+
+            <div class="total-display">
+                <span>Fee Rekber:</span>
+                <span class="text-accent" id="rekber-fee">Rp 0</span>
+            </div>
+            <div class="total-display" style="border-color: #888; background: #222;">
+                <span>Total Transfer:</span>
+                <span class="text-primary" id="rekber-total">Rp 0</span>
+            </div>
+
+            <button class="btn-action" onclick="checkoutWa('rekber')">
+                Gunakan Jasa Rekber <span>➔</span>
+            </button>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Ujayy All right reserved.</p>
+    </footer>
+
+    <!-- MODAL FEATURES -->
+    <div id="feature-modal" class="modal-overlay hidden" onclick="closeModal(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modal-title">Fitur Cheat</div>
+                <button class="close-modal" onclick="closeModal(event, true)">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const WA_NUMBER = "62895635429123";
+
+        // --- DATA STRUKTUR ---
+        const games = [
+            { name: "GOLD AND GLORY", status: "yellow" },
+            { name: "PUBG MOBILE", status: "green" },
+            { name: "BLOOD STRIKE", status: "green" },
+            { name: "CALL OF DUTY", status: "green" },
+            { name: "MOBILE LEGEND", status: "green" },
+            { name: "DELTA FORCE", status: "yellow" },
+            { name: "ARENA BREAKOUT", status: "yellow" },
+            { name: "FREE FIRE", status: "green" },
+            { name: "HONOR OF KINGS", status: "yellow" },
+            { name: "SUPER SUS", status: "red" },
+            { name: "8 BALL POOL", status: "green" },
+            { name: "VALORANT", status: "yellow" },
+            { name: "CROSS FIRE", status: "green" },
+            { name: "AOV/ROV/LQMB", status: "green" },
+            { name: "POKEMON UNITE", status: "green" },
+            { name: "SPEED DRIFTERS", status: "green" },
+            { name: "APEX LEGEND", status: "green" },
+            { name: "ALBION ONLINE", status: "green" },
+            { name: "COUNTER STRIKE", status: "green" },
+            { name: "DARK AND DARKER", status: "green" },
+            { name: "DOTA 2", status: "green" },
+            { name: "FORTNITE", status: "green" },
+            { name: "GTA V", status: "green" },
+            { name: "HONKAI STAR RAIL", status: "green" },
+            { name: "LOST LIGHT", status: "green" },
+            { name: "MARVEL RIVAL", status: "green" },
+            { name: "POINT BLANK", status: "green" },
+            { name: "WORD WAR 3", status: "green" }
+        ];
+
+        // Fitur 4 Deadly Sins - Dirapikan
+        const featuresDeadlyHTML = `
+            <div class="feature-section">
+                <span class="feature-cat">ESP & ESP Settings</span>
+                <div class="feature-grid">
+                    <div class="feature-item">Configuration Manager</div>
+                    <div class="feature-item">Enable Bypass + Anti FC</div>
+                    <div class="feature-item">Force Exit Match</div>
+                    <div class="feature-item">Enable Functions</div>
+                    <div class="feature-item">Draw Box</div>
+                    <div class="feature-item">Draw Line</div>
+                    <div class="feature-item">Draw Info Player</div>
+                </div>
+            </div>
+            <div class="feature-section">
+                <span class="feature-cat">Monster ESP</span>
+                <div class="feature-grid">
+                    <div class="feature-item">Draw Box Monster</div>
+                    <div class="feature-item">Draw Line Monster</div>
+                    <div class="feature-item">Show Info</div>
+                </div>
+            </div>
+            <div class="feature-section">
+                <span class="feature-cat">Aimbot & Aim Settings</span>
+                <div class="feature-grid">
+                    <div class="feature-item">Aim Activation</div>
+                    <div class="feature-item">Enable Aim Bot</div>
+                    <div class="feature-item">Silent Aim</div>
+                    <div class="feature-item">Auto Headshot</div>
+                    <div class="feature-item">Force Headshot</div>
+                    <div class="feature-item">Target & Range</div>
+                    <div class="feature-item">Target Type</div>
+                    <div class="feature-item">FOV Radius</div>
+                    <div class="feature-item">Max Range</div>
+                    <div class="feature-item">Show FOV Circle</div>
+                    <div class="feature-item">Show Aim Line</div>
+                </div>
+            </div>
+            <div class="feature-section">
+                <span class="feature-cat">Memory Hacks</span>
+                <div class="feature-grid">
+                    <div class="feature-item">Level 50 (Lobby)</div>
+                    <div class="feature-item">Multi Damage</div>
+                    <div class="feature-item">Movement</div>
+                    <div class="feature-item">No Collision</div>
+                    <div class="feature-item">Unlimited Jump</div>
+                    <div class="feature-item">Guncangan Maut</div>
+                    <div class="feature-item">Crouch Jump</div>
+                    <div class="feature-item">Speed Settings</div>
+                    <div class="feature-item">Crouch Speed</div>
+                    <div class="feature-item">Walk Speed</div>
+                </div>
+            </div>
+            <div class="feature-section">
+                <span class="feature-cat">Other Features</span>
+                <div class="feature-grid">
+                    <div class="feature-item">Infinite Durability</div>
+                    <div class="feature-item">Enable Entity Size</div>
+                    <div class="feature-item">Enable FOV</div>
+                    <div class="feature-item">Force Skill Enable</div>
+                    <div class="feature-item">Disable Skill Hold</div>
+                    <div class="feature-item" style="color:#888;">Unlimited Bag (Maintenance)</div>
+                </div>
+            </div>
+        `;
+
+        // Fitur G3 Store - Dirapikan
+        const featuresG3HTML = `
+            <div class="feature-section">
+                <span class="feature-cat">Combat & Aim</span>
+                <div class="feature-grid">
+                    <div class="feature-item">Silent Aim</div>
+                    <div class="feature-item">Magic Bullet</div>
+                    <div class="feature-item">Auto Headshoot</div>
+                    <div class="feature-item">Attack Speed</div>
+                    <div class="feature-item">Arrow Piercing (Active)</div>
+                    <div class="feature-item">No Recoil Crossbow</div>
+                </div>
+            </div>
+            <div class="feature-section">
+                <span class="feature-cat">Movement & Character</span>
+                <div class="feature-grid">
+                    <div class="feature-item">Speed Booster</div>
+                    <div class="feature-item">Speed Berdiri/Jongkok</div>
+                    <div class="feature-item">Jump Blink (High)</div>
+                    <div class="feature-item">Player Height</div>
+                    <div class="feature-item">Anti Stun</div>
+                    <div class="feature-item">No Collision</div>
+                </div>
+            </div>
+            <div class="feature-section">
+                <span class="feature-cat">Visuals & ESP</span>
+                <div class="feature-grid">
+                    <div class="feature-item">ESP</div>
+                    <div class="feature-item">FOV Changer</div>
+                    <div class="feature-item">Player List</div>
+                    <div class="feature-item">Item List</div>
+                </div>
+            </div>
+            <div class="feature-section">
+                <span class="feature-cat">Utility & Misc</span>
+                <div class="feature-grid">
+                    <div class="feature-item">Instant Loot</div>
+                    <div class="feature-item">Unlock Trade (Lv 50)</div>
+                    <div class="feature-item">Skip Search</div>
+                    <div class="feature-item">Force Exit Match</div>
+                    <div class="feature-item">Bypass Anti Kick</div>
+                </div>
+            </div>
+        `;
+
+        // --- STATE VARIABLES ---
+        let currentGagSelection = { brand: 'deadly', price: 0, priceStr: '', duration: '' };
+
+        // --- INIT ---
+        window.onload = function() {
+            if (!sessionStorage.getItem('introSeen')) {
+                document.getElementById('intro-overlay').style.display = 'flex';
+            } else {
+                document.getElementById('intro-overlay').style.display = 'none';
+            }
+
+            renderGameList();
+            document.querySelectorAll('.jokgen-check').forEach(cb => cb.addEventListener('change', calculateJokgen));
+        };
+
+        // --- INTRO POPUP LOGIC ---
+        function closeIntro() {
+            document.getElementById('intro-overlay').style.display = 'none';
+            sessionStorage.setItem('introSeen', 'true');
+        }
+
+        // --- NAVIGATION ---
+        function switchTab(tabId) {
+            document.querySelectorAll('section').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // --- SECTION 1: GAG CHEATS ---
+        function selectBrand(brand, btn) {
+            currentGagSelection.brand = brand;
+            currentGagSelection.price = 0; 
+            document.getElementById('gag-total').innerText = 'Rp 0';
+            
+            document.querySelectorAll('.brand-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if(brand === 'deadly') {
+                document.getElementById('brand-deadly').classList.remove('hidden');
+                document.getElementById('brand-g3store').classList.add('hidden');
+            } else {
+                document.getElementById('brand-deadly').classList.add('hidden');
+                document.getElementById('brand-g3store').classList.remove('hidden');
+            }
+        }
+
+        function selectPrice(el, price, duration) {
+            const container = el.parentElement;
+            container.querySelectorAll('.price-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+
+            currentGagSelection.price = parseInt(price.replace('.',''));
+            currentGagSelection.priceStr = price.replace('.', '');
+            currentGagSelection.duration = duration;
+            document.getElementById('gag-total').innerText = 'Rp ' + price;
+        }
+
+        // --- SECTION 2: ALL GAMES ---
+        function renderGameList() {
+            const grid = document.querySelector('.game-grid');
+            let html = '';
+            games.forEach(game => {
+                let colorClass = game.status === 'green' ? 'dot-green' : (game.status === 'yellow' ? 'dot-yellow' : 'dot-red');
+                html += `<div class="game-item" onclick="orderGame('${game.name}')">
+                            <div class="status-dot ${colorClass}"></div>
+                            <span class="game-name">${game.name}</span>
+                         </div>`;
+            });
+            grid.innerHTML = html;
+        }
+
+        function orderGame(gameName) {
+            const text = `Halo Admin UjayyStore, saya ingin membeli Cheat untuk game *${gameName}*. Mohon infonya.`;
+            window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // --- SECTION 3: JOKGEN (UPDATED LOGIC) ---
+        function calculateJokgen() {
+            let mapPrice = 0;
+            document.querySelectorAll('.jokgen-check:checked').forEach(cb => mapPrice += parseInt(cb.value));
+            
+            let matches = parseInt(document.getElementById('jokgen-matches').value) || 1;
+            if(matches < 1) matches = 1; // Prevent 0 or negative
+
+            let total = mapPrice * matches;
+            document.getElementById('jokgen-total').innerText = 'Rp ' + total.toLocaleString('id-ID');
+            return total;
+        }
+
+        // --- SECTION 5: REKBER ---
+        function calculateRekber() {
+            const val = parseInt(document.getElementById('rekber-amount').value) || 0;
+            let fee = 0;
+            if (val > 0 && val <= 100000) fee = 4000;
+            else if (val > 100000 && val <= 250000) fee = 8000;
+            else if (val > 250000 && val <= 500000) fee = 12000;
+            else if (val > 500000 && val <= 1000000) fee = 20000;
+            else if (val > 1000000) fee = "Hubungi Admin";
+
+            document.getElementById('rekber-fee').innerText = typeof fee === 'number' ? 'Rp ' + fee.toLocaleString('id-ID') : fee;
+            if (typeof fee === 'number') {
+                document.getElementById('rekber-total').innerText = 'Rp ' + (val + fee).toLocaleString('id-ID');
+            } else {
+                document.getElementById('rekber-total').innerText = "-";
+            }
+        }
+
+        // --- MODALS ---
+        function openModal(type) {
+            const modal = document.getElementById('feature-modal');
+            const title = document.getElementById('modal-title');
+            const body = document.getElementById('modal-body');
+
+            modal.classList.remove('hidden');
+            
+            if(type === 'deadly') {
+                title.innerText = "Fitur: 4 𝖉𝖊𝖆𝖉𝖑𝖞♱𝖘𝖎𝖓𝖘";
+                body.innerHTML = featuresDeadlyHTML;
+            } else if(type === 'g3') {
+                title.innerText = "Fitur: G3 Store";
+                body.innerHTML = featuresG3HTML;
+            }
+        }
+
+        function closeModal(e, force = false) {
+            if (force || e.target.id === 'feature-modal') {
+                document.getElementById('feature-modal').classList.add('hidden');
+            }
+        }
+
+        // --- CHECKOUT REDIRECT ---
+        function checkoutWa(type) {
+            let message = "";
+            const ign = (type === 'jokgen') ? (document.getElementById('jokgen-ign').value || "-") : "-";
+
+            if (type === 'gag') {
+                if(currentGagSelection.price === 0) { alert("Silakan pilih durasi cheat."); return; }
+                const brandName = currentGagSelection.brand === 'deadly' ? '4 𝖉𝖊𝖆𝖉𝖑𝖞♱𝖘𝖎𝖓𝖘' : 'G3 Store';
+                message = `Halo Admin UjayyStore, saya mau order Cheat Gold And Glory.\n\n*Brand:* ${brandName}\n*Durasi:* ${currentGagSelection.duration}\n*Harga:* Rp ${currentGagSelection.priceStr}\n\nMohon diproses!`;
+            } 
+            else if (type === 'jokgen') {
+                const total = calculateJokgen();
+                if(total === 0) { alert("Pilih map minimal satu."); return; }
+                if(ign === "-") { alert("Mohon isi Username Game anda."); return; }
+                
+                let matches = document.getElementById('jokgen-matches').value;
+                let items = []; document.querySelectorAll('.jokgen-check:checked').forEach(cb => items.push(cb.dataset.name));
+                
+                message = `Halo Admin UjayyStore, order Jokgen.\n\n*Map:* ${items.join(', ')}\n*Jumlah Match:* ${matches}\n*Total:* Rp ${total.toLocaleString('id-ID')}\n*Username:* ${ign}\n\nSetuju aturan.`;
+            }
+            else if (type === 'acc') {
+                const lvl = document.getElementById('acc-level-select').value;
+                if(!lvl) { alert("Pilih level akun."); return; }
+                message = `Halo Admin, saya mau beli Akun Gold And Glory.\n\n*Level:* ${lvl}\n\nMohon info harganya.`;
+            }
+            else if (type === 'rekber') {
+                const amount = document.getElementById('rekber-amount').value;
+                const feeEl = document.getElementById('rekber-fee').innerText;
+                if(!amount || amount <= 0) { alert("Masukkan nominal."); return; }
+                message = `Halo Admin, mau Rekber.\n\n*Nominal:* Rp ${parseInt(amount).toLocaleString('id-ID')}\n*Fee:* ${feeEl}\n\nMohon arahan.`;
+            }
+
+            window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
