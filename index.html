@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -190,7 +190,6 @@
             margin-top: -5px;
         }
 
-        /* Promo Badge */
         .promo-badge {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
@@ -202,7 +201,7 @@
             animation: pulseGlow 2s infinite;
         }
 
-        /* MAIN COUNTDOWN - UNIFORM LAYOUT */
+        /* MAIN COUNTDOWN */
         .main-countdown {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 78, 59, 0.2) 50%, rgba(245, 158, 11, 0.08) 100%);
             border: 2px solid var(--border);
@@ -1329,25 +1328,26 @@
             opacity: 0.6;
         }
 
+        /* INTRO OVERLAY */
         #intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.97);
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         .intro-box {
             background: linear-gradient(145deg, var(--bg-card), rgba(6, 78, 59, 0.3));
             width: 100%;
-            max-width: 600px;
-            max-height: 90vh;
+            max-width: 620px;
+            max-height: 92vh;
             border-radius: 20px;
             border: 1px solid var(--border);
             box-shadow: 0 0 80px rgba(16, 185, 129, 0.2), 0 0 120px rgba(245, 158, 11, 0.1);
@@ -1359,24 +1359,24 @@
         .intro-header {
             background: linear-gradient(135deg, var(--primary), var(--emerald-dark));
             color: var(--text-main);
-            padding: 22px;
+            padding: 20px;
             text-align: center;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 1.2rem;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
         }
 
         .intro-body {
-            padding: 28px;
+            padding: 22px;
             overflow-y: auto;
             color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
+            font-size: 0.9rem;
+            line-height: 1.65;
         }
 
         .intro-body p {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .intro-body strong {
@@ -1385,29 +1385,32 @@
 
         .intro-tips {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 78, 59, 0.2));
-            padding: 18px;
+            padding: 16px 18px;
             border-radius: 12px;
             border-left: 3px solid var(--primary);
-            margin-bottom: 20px;
+            margin: 15px 0;
         }
 
         .intro-tips strong {
             display: block;
             margin-bottom: 12px;
             color: var(--text-main);
+            font-size: 0.95rem;
         }
 
         .intro-tips ol {
             padding-left: 20px;
+            margin: 0;
         }
 
         .intro-tips li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: var(--text-muted);
+            font-size: 0.85rem;
         }
 
         .intro-footer {
-            padding: 25px;
+            padding: 20px;
             border-top: 1px solid var(--border);
             text-align: center;
             background: rgba(22, 35, 28, 0.5);
@@ -1417,10 +1420,10 @@
             background: linear-gradient(135deg, var(--accent), var(--gold));
             color: var(--bg-dark);
             border: none;
-            padding: 16px 45px;
+            padding: 14px 40px;
             border-radius: 50px;
             font-weight: 800;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -1437,7 +1440,19 @@
             text-align: center;
             color: #ef4444;
             font-weight: 800;
-            font-size: 1.15rem;
+            font-size: 1rem;
+            margin-top: 15px;
+        }
+
+        .contact-note {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .contact-note strong {
+            color: var(--primary-glow);
         }
 
         @media (max-width: 400px) {
@@ -1509,9 +1524,7 @@
         window.addEventListener('resize', resizeCanvas);
         
         class Star {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             
             reset() {
                 this.x = Math.random() * width;
@@ -1526,22 +1539,16 @@
             update() {
                 this.y += this.speedY;
                 this.twinklePhase += this.twinkleSpeed;
-                
-                if (this.y > height + 10) {
-                    this.y = -10;
-                    this.x = Math.random() * width;
-                }
+                if (this.y > height + 10) { this.y = -10; this.x = Math.random() * width; }
             }
             
             draw() {
                 const twinkle = Math.sin(this.twinklePhase) * 0.3 + 0.7;
                 const currentOpacity = this.opacity * twinkle;
-                
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, Math.max(0.1, this.size), 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(16, 185, 129, ${currentOpacity})`;
                 ctx.fill();
-                
                 const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, Math.max(0.1, this.size * 3));
                 gradient.addColorStop(0, `rgba(16, 185, 129, ${currentOpacity * 0.5})`);
                 gradient.addColorStop(1, 'rgba(16, 185, 129, 0)');
@@ -1553,78 +1560,36 @@
         }
         
         class CrescentMoon {
-            constructor() {
-                this.x = width * 0.85;
-                this.y = height * 0.15;
-                this.size = Math.min(width, height) * 0.08;
-                this.glowPhase = 0;
-            }
-            
-            update() {
-                this.glowPhase += 0.02;
-                this.size = Math.min(width, height) * 0.08;
-                this.x = width * 0.85;
-                this.y = height * 0.15;
-            }
-            
+            constructor() { this.x = width * 0.85; this.y = height * 0.15; this.size = Math.min(width, height) * 0.08; this.glowPhase = 0; }
+            update() { this.glowPhase += 0.02; this.size = Math.min(width, height) * 0.08; this.x = width * 0.85; this.y = height * 0.15; }
             draw() {
                 const glow = Math.sin(this.glowPhase) * 0.3 + 0.7;
                 const safeSize = Math.max(1, this.size);
-                
                 const glowGradient = ctx.createRadialGradient(this.x, this.y, safeSize * 0.5, this.x, this.y, safeSize * 2);
                 glowGradient.addColorStop(0, `rgba(245, 158, 11, ${0.3 * glow})`);
                 glowGradient.addColorStop(1, 'rgba(245, 158, 11, 0)');
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, safeSize * 2, 0, Math.PI * 2);
-                ctx.fillStyle = glowGradient;
-                ctx.fill();
-                
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, safeSize, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(245, 158, 11, ${0.9 * glow})`;
-                ctx.fill();
-                
-                ctx.beginPath();
-                ctx.arc(this.x + safeSize * 0.4, this.y - safeSize * 0.1, safeSize * 0.8, 0, Math.PI * 2);
-                ctx.fillStyle = '#0a0f0d';
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, safeSize * 2, 0, Math.PI * 2); ctx.fillStyle = glowGradient; ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, safeSize, 0, Math.PI * 2); ctx.fillStyle = `rgba(245, 158, 11, ${0.9 * glow})`; ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x + safeSize * 0.4, this.y - safeSize * 0.1, safeSize * 0.8, 0, Math.PI * 2); ctx.fillStyle = '#0a0f0d'; ctx.fill();
             }
         }
         
-        for (let i = 0; i < 80; i++) {
-            particles.push(new Star());
-        }
+        for (let i = 0; i < 80; i++) particles.push(new Star());
         const moon = new CrescentMoon();
         
         function animate() {
-            ctx.fillStyle = 'rgba(10, 15, 13, 0.15)';
-            ctx.fillRect(0, 0, width, height);
-            
+            ctx.fillStyle = 'rgba(10, 15, 13, 0.15)'; ctx.fillRect(0, 0, width, height);
             const bgGradient = ctx.createRadialGradient(width * 0.3, height * 0.3, 0, width * 0.5, height * 0.5, width);
-            bgGradient.addColorStop(0, 'rgba(6, 78, 59, 0.1)');
-            bgGradient.addColorStop(0.5, 'rgba(10, 15, 13, 0.05)');
-            bgGradient.addColorStop(1, 'rgba(10, 15, 13, 0)');
-            ctx.fillStyle = bgGradient;
-            ctx.fillRect(0, 0, width, height);
-            
-            particles.forEach(star => {
-                star.update();
-                star.draw();
-            });
-            
-            moon.update();
-            moon.draw();
-            
+            bgGradient.addColorStop(0, 'rgba(6, 78, 59, 0.1)'); bgGradient.addColorStop(0.5, 'rgba(10, 15, 13, 0.05)'); bgGradient.addColorStop(1, 'rgba(10, 15, 13, 0)');
+            ctx.fillStyle = bgGradient; ctx.fillRect(0, 0, width, height);
+            particles.forEach(star => { star.update(); star.draw(); });
+            moon.update(); moon.draw();
             animationId = requestAnimationFrame(animate);
         }
         
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-        if (!prefersReducedMotion.matches) {
-            animate();
-        } else {
-            ctx.fillStyle = '#0a0f0d';
-            ctx.fillRect(0, 0, width, height);
-        }
+        if (!prefersReducedMotion.matches) animate();
+        else { ctx.fillStyle = '#0a0f0d'; ctx.fillRect(0, 0, width, height); }
 
         // === PROTECTION ===
         (function() {
@@ -1646,10 +1611,7 @@
             container.appendChild(toast);
             void toast.offsetWidth;
             toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 400);
-            }, 3000);
+            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3000);
         }
 
         // === CONFIG ===
@@ -1657,81 +1619,41 @@
             wa: "62895635429123",
             currency: "IDR",
             games: [
-                { name: "GOLD AND GLORY", status: "yellow" },
-                { name: "PUBG MOBILE", status: "green" },
-                { name: "BLOOD STRIKE", status: "green" },
-                { name: "CALL OF DUTY", status: "green" },
-                { name: "MOBILE LEGEND", status: "green" },
-                { name: "DELTA FORCE", status: "yellow" },
-                { name: "ARENA BREAKOUT", status: "yellow" },
-                { name: "FREE FIRE", status: "green" },
-                { name: "HONOR OF KINGS", status: "yellow" },
-                { name: "SUPER SUS", status: "red" },
-                { name: "8 BALL POOL", status: "green" },
-                { name: "VALORANT", status: "yellow" },
-                { name: "CROSS FIRE", status: "green" },
-                { name: "AOV/ROV/LQMB", status: "green" },
-                { name: "POKEMON UNITE", status: "green" },
-                { name: "SPEED DRIFTERS", status: "green" },
-                { name: "APEX LEGEND", status: "green" },
-                { name: "ALBION ONLINE", status: "green" },
-                { name: "COUNTER STRIKE", status: "green" },
-                { name: "DARK AND DARKER", status: "green" },
-                { name: "DOTA 2", status: "green" },
-                { name: "FORTNITE", status: "green" },
-                { name: "GTA V", status: "green" },
-                { name: "HONKAI STAR RAIL", status: "green" },
-                { name: "LOST LIGHT", status: "green" },
-                { name: "MARVEL RIVAL", status: "green" },
-                { name: "POINT BLANK", status: "green" },
+                { name: "GOLD AND GLORY", status: "yellow" }, { name: "PUBG MOBILE", status: "green" }, { name: "BLOOD STRIKE", status: "green" },
+                { name: "CALL OF DUTY", status: "green" }, { name: "MOBILE LEGEND", status: "green" }, { name: "DELTA FORCE", status: "yellow" },
+                { name: "ARENA BREAKOUT", status: "yellow" }, { name: "FREE FIRE", status: "green" }, { name: "HONOR OF KINGS", status: "yellow" },
+                { name: "SUPER SUS", status: "red" }, { name: "8 BALL POOL", status: "green" }, { name: "VALORANT", status: "yellow" },
+                { name: "CROSS FIRE", status: "green" }, { name: "AOV/ROV/LQMB", status: "green" }, { name: "POKEMON UNITE", status: "green" },
+                { name: "SPEED DRIFTERS", status: "green" }, { name: "APEX LEGEND", status: "green" }, { name: "ALBION ONLINE", status: "green" },
+                { name: "COUNTER STRIKE", status: "green" }, { name: "DARK AND DARKER", status: "green" }, { name: "DOTA 2", status: "green" },
+                { name: "FORTNITE", status: "green" }, { name: "GTA V", status: "green" }, { name: "HONKAI STAR RAIL", status: "green" },
+                { name: "LOST LIGHT", status: "green" }, { name: "MARVEL RIVAL", status: "green" }, { name: "POINT BLANK", status: "green" },
                 { name: "WORD WAR 3", status: "green" }
             ],
             groups: [
-                "https://t.me/ujaygantengbanget",
-                "https://chat.whatsapp.com/CXRKqExCxFtEJGrMoqGv9a?mode=gi_t",
-                "https://t.me/ujayysch",
-                "https://t.me/luminosxv3",
-                "https://t.me/deadlysinsStoree",
-                "https://chat.whatsapp.com/G58EVIQiZlaFxU6pJKoJM9?mode=gi_t",
-                "https://t.me/grupnyaG3"
+                "https://t.me/ujaygantengbanget", "https://chat.whatsapp.com/CXRKqExCxFtEJGrMoqGv9a?mode=gi_t",
+                "https://t.me/ujayysch", "https://t.me/luminosxv3", "https://t.me/deadlysinsStoree",
+                "https://chat.whatsapp.com/G58EVIQiZlaFxU6pJKoJM9?mode=gi_t", "https://t.me/grupnyaG3"
             ]
         };
 
-        let _0xSTATE = {
-            gag: { brand: 'deadly', price: 0, priceStr: '', duration: '' },
-            acc: { level: null }
-        };
+        let _0xSTATE = { gag: { brand: 'deadly', price: 0, priceStr: '', duration: '' }, acc: { level: null } };
 
         // === COUNTDOWN ===
         const targetDate = new Date('2026-03-31T23:59:59+07:00').getTime();
         const startDate = new Date('2026-02-20T00:00:00+07:00').getTime();
-        
         let prevValues = { days: null, hours: null, mins: null, secs: null };
         
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
-            
             const totalDuration = targetDate - startDate;
             const elapsed = now - startDate;
             
             if (distance <= 0) {
-                const daysEl = document.getElementById('cd-days');
-                const hoursEl = document.getElementById('cd-hours');
-                const minsEl = document.getElementById('cd-mins');
-                const secsEl = document.getElementById('cd-secs');
-                
-                if (daysEl) daysEl.innerText = '0';
-                if (hoursEl) hoursEl.innerText = '00';
-                if (minsEl) minsEl.innerText = '00';
-                if (secsEl) secsEl.innerText = '00';
-                
-                const progressFill = document.getElementById('progress-fill');
-                if (progressFill) progressFill.style.width = '100%';
-                
-                const progressText = document.getElementById('progress-text');
-                if (progressText) progressText.innerText = 'Waktu telah habis!';
-                
+                ['cd-days', 'cd-hours', 'cd-mins', 'cd-secs'].forEach(id => { const el = document.getElementById(id); if(el) el.innerText = id === 'cd-days' ? '0' : '00'; });
+                const progressFill = document.getElementById('progress-fill'); if (progressFill) progressFill.style.width = '100%';
+                const progressText = document.getElementById('progress-text'); if (progressText) progressText.innerText = 'Waktu telah habis!';
                 return;
             }
             
@@ -1740,40 +1662,18 @@
             const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const secs = Math.floor((distance % (1000 * 60)) / 1000);
             
-            const daysEl = document.getElementById('cd-days');
-            const hoursEl = document.getElementById('cd-hours');
-            const minsEl = document.getElementById('cd-mins');
+            const updateField = (id, val, prev) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.innerText = typeof val === 'number' && id !== 'cd-days' ? val.toString().padStart(2, '0') : val;
+                if (prev !== val) { el.classList.add('tick'); setTimeout(() => el.classList.remove('tick'), 200); }
+            };
+            
+            updateField('cd-days', days, prevValues.days);
+            updateField('cd-hours', hours, prevValues.hours);
+            updateField('cd-mins', mins, prevValues.mins);
             const secsEl = document.getElementById('cd-secs');
-            
-            if (daysEl) {
-                daysEl.innerText = days;
-                if (prevValues.days !== days) {
-                    daysEl.classList.add('tick');
-                    setTimeout(() => daysEl.classList.remove('tick'), 200);
-                }
-            }
-            
-            if (hoursEl) {
-                hoursEl.innerText = hours.toString().padStart(2, '0');
-                if (prevValues.hours !== hours) {
-                    hoursEl.classList.add('tick');
-                    setTimeout(() => hoursEl.classList.remove('tick'), 200);
-                }
-            }
-            
-            if (minsEl) {
-                minsEl.innerText = mins.toString().padStart(2, '0');
-                if (prevValues.mins !== mins) {
-                    minsEl.classList.add('tick');
-                    setTimeout(() => minsEl.classList.remove('tick'), 200);
-                }
-            }
-            
-            if (secsEl) {
-                secsEl.innerText = secs.toString().padStart(2, '0');
-                secsEl.classList.add('tick');
-                setTimeout(() => secsEl.classList.remove('tick'), 100);
-            }
+            if (secsEl) { secsEl.innerText = secs.toString().padStart(2, '0'); secsEl.classList.add('tick'); setTimeout(() => secsEl.classList.remove('tick'), 100); }
             
             const progressFill = document.getElementById('progress-fill');
             const progressText = document.getElementById('progress-text');
@@ -1782,7 +1682,6 @@
                 progressFill.style.width = progressPercent + '%';
                 progressText.innerText = `Progress: ${progressPercent.toFixed(2)}%`;
             }
-            
             prevValues = { days, hours, mins, secs };
         }
 
@@ -1790,42 +1689,45 @@
         const _0xHTML = `
             <div id="intro-overlay">
                 <div class="intro-box scale-in">
-                    <div class="intro-header">Warning / Information</div>
+                    <div class="intro-header">⚠️INFORMATION⚠️</div>
                     <div class="intro-body">
-                        <p>Playing with any type of cheats is <strong>only for fun</strong> and <strong>100% your responsibility</strong>. Whatever the brand of the hack or the developer, all leads to a ban.</p>
+                        <p>🔈 Playing with any type of cheats is only for fun and 100% your responsibility, whatever the brand of the hack, whatever its developer, all and no exception lead to a ban.</p>
+                        
                         <p>If you don't want to get banned, just don't play with hacks.</p>
-                        <p>I know these words might upset some liars and scammers, but we don't care.</p>
+                        
+                        <p>I know these words will make some liars and scammers mad, but we don't care.</p>
                         
                         <div class="intro-tips">
-                            <strong>You have to follow these tips:</strong>
+                            <strong>YOU HAVE TO FOLLOW THIS TIPS 📌</strong>
                             <ol>
-                                <li>Follow the files channel and <strong>pin it</strong>.</li>
-                                <li>Play like a professional: play safely.</li>
-                                <li>Never give your key to anyone.</li>
-                                <li>Don't use any files not in the channel.</li>
-                                <li>Updates take time (hours/days). We extend keys for this.</li>
-                                <li>Follow advice posted in the channel.</li>
-                                <li>Internal update? Log out instantly and test.</li>
+                                <li>You have to follow files channel of the hack and pin it to see any update or warning.</li>
+                                <li>Play as professional, play safely and avoid reports as you can.</li>
+                                <li>Never give your key to anyone except the developer or your reseller.</li>
+                                <li>Don't use any files that not in the files channel.</li>
+                                <li>You have to know that, any hack does updates and that maybe take few hours, day or more and we always extend the key to compensate your subscription.</li>
+                                <li>Follow any advice or tip that I post in files channel and never neglect.</li>
+                                <li>If there is any internal update whatever the hack you play with instantly log out of your acc and start test for 5 games.</li>
+                                <li style="color: #ef4444; font-weight: bold;">No refund policy 🚫</li>
                             </ol>
                         </div>
-                        <p class="no-refund">NO REFUND POLICY</p>
+                        
+                        <p class="contact-note">If you agree with this<br><strong>Contact to owner.</strong></p>
                     </div>
                     <div class="intro-footer">
-                        <button class="btn-enter" onclick="closeIntro()">I Understand, Enter</button>
+                        <button class="btn-enter" onclick="closeIntro()">I Agree, Enter</button>
                     </div>
                 </div>
             </div>
 
             <header>
                 <div class="container text-center">
-                    <div class="logo" onclick="goHome()">UjayyStore</div>
-                    <div class="logo-subtitle">Promo Spesial 2026 <span class="promo-badge">DISKON 10%</span></div>
+                    <div class="logo" onclick="goHome()">Ujayy.Store</div>
+                    <div class="logo-subtitle">Promo Spesial Ramadhan 2026 <span class="promo-badge">DISKON 10%</span></div>
                 </div>
             </header>
 
             <div class="container">
                 <div id="main-menu" class="fade-in-up">
-                    <!-- MAIN COUNTDOWN -->
                     <div class="main-countdown">
                         <div class="countdown-header">
                             <div class="countdown-title">Countdown Event</div>
@@ -1833,61 +1735,21 @@
                         </div>
                         
                         <div class="countdown-display">
-                            <div class="countdown-unit">
-                                <div class="countdown-box">
-                                    <div class="countdown-number" id="cd-days">--</div>
-                                </div>
-                                <div class="countdown-label">Day</div>
-                            </div>
-                            
-                            <div class="countdown-separator">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                            
-                            <div class="countdown-unit">
-                                <div class="countdown-box">
-                                    <div class="countdown-number" id="cd-hours">--</div>
-                                </div>
-                                <div class="countdown-label">Hour</div>
-                            </div>
-                            
-                            <div class="countdown-separator">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                            
-                            <div class="countdown-unit">
-                                <div class="countdown-box">
-                                    <div class="countdown-number" id="cd-mins">--</div>
-                                </div>
-                                <div class="countdown-label">Min</div>
-                            </div>
-                            
-                            <div class="countdown-separator">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                            
-                            <div class="countdown-unit">
-                                <div class="countdown-box seconds">
-                                    <div class="countdown-number" id="cd-secs">--</div>
-                                </div>
-                                <div class="countdown-label">Sec</div>
-                            </div>
+                            <div class="countdown-unit"><div class="countdown-box"><div class="countdown-number" id="cd-days">--</div></div><div class="countdown-label">Day</div></div>
+                            <div class="countdown-separator"><div class="dot"></div><div class="dot"></div></div>
+                            <div class="countdown-unit"><div class="countdown-box"><div class="countdown-number" id="cd-hours">--</div></div><div class="countdown-label">Hour</div></div>
+                            <div class="countdown-separator"><div class="dot"></div><div class="dot"></div></div>
+                            <div class="countdown-unit"><div class="countdown-box"><div class="countdown-number" id="cd-mins">--</div></div><div class="countdown-label">Min</div></div>
+                            <div class="countdown-separator"><div class="dot"></div><div class="dot"></div></div>
+                            <div class="countdown-unit"><div class="countdown-box seconds"><div class="countdown-number" id="cd-secs">--</div></div><div class="countdown-label">Sec</div></div>
                         </div>
                         
                         <div class="countdown-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-                            </div>
+                            <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 0%"></div></div>
                             <div class="progress-text" id="progress-text">Loading...</div>
                         </div>
                         
-                        <div class="live-indicator">
-                            <div class="live-dot"></div>
-                            <div class="live-text">Live Countdown</div>
-                        </div>
+                        <div class="live-indicator"><div class="live-dot"></div><div class="live-text">Live Countdown</div></div>
                     </div>
 
                     <div class="profile-header">
@@ -1897,161 +1759,65 @@
                     </div>
 
                     <div class="menu-container">
-                        <button class="menu-item" onclick="openPage('tab-groups')">
-                            <i class="fa-solid fa-users"></i>
-                            <span>Join All Group & Channel</span>
-                        </button>
-                        <button class="menu-item" onclick="openPage('tab-gag')">
-                            <i class="fa-solid fa-gamepad"></i>
-                            <span>Buy Cheat Gold And Glory</span>
-                        </button>
-                        <button class="menu-item" onclick="openPage('tab-allgames')">
-                            <i class="fa-solid fa-layer-group"></i>
-                            <span>Buy Cheat All Game Mobile & Emulator</span>
-                        </button>
-                        <button class="menu-item" onclick="openPage('tab-jokgen')">
-                            <i class="fa-solid fa-khanda"></i>
-                            <span>Jokgen Vip Gold And Glory</span>
-                        </button>
-                        <button class="menu-item" onclick="openPage('tab-acc')">
-                            <i class="fa-solid fa-id-card"></i>
-                            <span>Buy Account Gold And Glory</span>
-                        </button>
+                        <button class="menu-item" onclick="openPage('tab-groups')"><i class="fa-solid fa-users"></i><span>Join All Group & Channel [Click this]</span></button>
+                        <button class="menu-item" onclick="openPage('tab-gag')"><i class="fa-solid fa-gamepad"></i><span>Buy Cheat Game [Gold And Glory]</span></button>
+                        <button class="menu-item" onclick="openPage('tab-allgames')"><i class="fa-solid fa-layer-group"></i><span>Buy Cheat Game [Mobile & Emulator]</span></button>
+                        <button class="menu-item" onclick="openPage('tab-jokgen')"><i class="fa-solid fa-khanda"></i><span>Jokgen Vip Game [Gold And Glory]</span></button>
+                        <button class="menu-item" onclick="openPage('tab-acc')"><i class="fa-solid fa-id-card"></i><span>Buy Account Game [Gold And Glory]</span></button>
                     </div>
-
                     <footer><p>&copy; 2026 UjayyStore. All rights reserved.</p></footer>
                 </div>
 
-                <!-- GROUPS -->
                 <section id="tab-groups" class="section-card hidden">
-                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu</button>
-                    <div class="profile-header" style="margin-bottom:20px;">
-                         <h2 style="border:none; justify-content:center;">Be A Smart Buyer!</h2>
-                        <p style="color:var(--text-muted);">Official Social Media Links.</p>
-                    </div>
+                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> BACK TO MENU</button>
+                    <div class="profile-header" style="margin-bottom:20px;"><h2 style="border:none; justify-content:center;">Be A Smart Buyer!</h2><p style="color:var(--text-muted);">Official Social Media Links.</p></div>
                     <button class="btn-action" onclick="joinAll()"><i class="fa-solid fa-rocket"></i> JOIN ALL GROUPS</button>
                     <p style="text-align:center;font-size:0.8rem;color:var(--text-muted);margin-top:10px;margin-bottom:20px;">*Aktifkan izin popup agar semua link terbuka.</p>
                     <div class="group-list">
-                        <a href="https://t.me/ujaygantengbanget" target="_blank" class="group-item">
-                            <div class="group-icon"><i class="fa-brands fa-telegram"></i></div>
-                            <div class="group-info"><h4>Group Telegram Ujay</h4><p>Komunitas</p></div>
-                            <div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div>
-                        </a>
-                        <a href="https://chat.whatsapp.com/CXRKqExCxFtEJGrMoqGv9a?mode=gi_t" target="_blank" class="group-item">
-                            <div class="group-icon"><i class="fa-brands fa-whatsapp"></i></div>
-                            <div class="group-info"><h4>Group WhatsApp Ujay</h4><p>Chat Grup</p></div>
-                            <div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div>
-                        </a>
-                        <a href="https://t.me/ujayysch" target="_blank" class="group-item">
-                            <div class="group-icon"><i class="fa-brands fa-telegram"></i></div>
-                            <div class="group-info"><h4>Channel Telegram Ujay</h4><p>Official Channel</p></div>
-                            <div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div>
-                        </a>
-                        <a href="https://t.me/luminosxv3" target="_blank" class="group-item">
-                            <div class="group-icon"><i class="fa-solid fa-bell"></i></div>
-                            <div class="group-info"><h4>Channel Back Up Ujay</h4><p>Cadangan</p></div>
-                            <div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div>
-                        </a>
-                        <a href="https://t.me/deadlysinsStoree" target="_blank" class="group-item">
-                            <div class="group-icon"><i class="fa-solid fa-skull"></i></div>
-                            <div class="group-info"><h4>Channel Telegram 4 Sins</h4><p>Channel</p></div>
-                            <div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div>
-                        </a>
-                        <a href="https://chat.whatsapp.com/G58EVIQiZlaFxU6pJKoJM9?mode=gi_t" target="_blank" class="group-item">
-                            <div class="group-icon"><i class="fa-brands fa-whatsapp"></i></div>
-                            <div class="group-info"><h4>Group JB Roblox</h4><p>Ulqi x Ujay</p></div>
-                            <div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div>
-                        </a>
-                        <a href="https://t.me/grupnyaG3" target="_blank" class="group-item">
-                            <div class="group-icon"><i class="fa-solid fa-store"></i></div>
-                            <div class="group-info"><h4>G3Store</h4><p>Channel Telegram</p></div>
-                            <div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div>
-                        </a>
+                        <a href="https://t.me/ujaygantengbanget" target="_blank" class="group-item"><div class="group-icon"><i class="fa-brands fa-telegram"></i></div><div class="group-info"><h4>Group Telegram Ujay</h4><p>Komunitas</p></div><div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div></a>
+                        <a href="https://chat.whatsapp.com/CXRKqExCxFtEJGrMoqGv9a?mode=gi_t" target="_blank" class="group-item"><div class="group-icon"><i class="fa-brands fa-whatsapp"></i></div><div class="group-info"><h4>Group WhatsApp Ujay</h4><p>Chat Grup</p></div><div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div></a>
+                        <a href="https://t.me/ujayysch" target="_blank" class="group-item"><div class="group-icon"><i class="fa-brands fa-telegram"></i></div><div class="group-info"><h4>Channel Telegram Ujay</h4><p>Official Channel</p></div><div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div></a>
+                        <a href="https://t.me/luminosxv3" target="_blank" class="group-item"><div class="group-icon"><i class="fa-solid fa-bell"></i></div><div class="group-info"><h4>Channel Back Up Ujay</h4><p>Cadangan</p></div><div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div></a>
+                        <a href="https://t.me/deadlysinsStoree" target="_blank" class="group-item"><div class="group-icon"><i class="fa-solid fa-skull"></i></div><div class="group-info"><h4>Channel Telegram 4 Sins</h4><p>Channel</p></div><div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div></a>
+                        <a href="https://chat.whatsapp.com/G58EVIQiZlaFxU6pJKoJM9?mode=gi_t" target="_blank" class="group-item"><div class="group-icon"><i class="fa-brands fa-whatsapp"></i></div><div class="group-info"><h4>Group JB Roblox</h4><p>Ulqi x Ujay</p></div><div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div></a>
+                        <a href="https://t.me/grupnyaG3" target="_blank" class="group-item"><div class="group-icon"><i class="fa-solid fa-store"></i></div><div class="group-info"><h4>G3Store</h4><p>Channel Telegram</p></div><div class="group-arrow"><i class="fa-solid fa-chevron-right"></i></div></a>
                     </div>
                 </section>
 
-                <!-- GAG - WITH 10% DISCOUNT -->
                 <section id="tab-gag" class="section-card hidden">
-                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu</button>
-                    <h2>Buy Cheat Gold And Glory <span class="promo-badge">DISKON 10%</span></h2>
+                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> BACK TO MENU</button>
+                    <h2>Buy Cheat Game [Gold And Glory]<span class="promo-badge">DISKON 10%</span></h2>
                     <div class="brand-toggle">
                         <button class="brand-btn active" onclick="selectBrand('deadly', this)"><i class="fa-solid fa-skull"></i> 4 deadly sins</button>
                         <button class="brand-btn" onclick="selectBrand('g3store', this)"><i class="fa-solid fa-store"></i> G3 Store</button>
                     </div>
-
                     <div id="brand-deadly">
                         <button class="btn-action btn-outline" onclick="openModal('deadly')"><i class="fa-solid fa-list"></i> Lihat Fitur Lengkap 4 deadly sins</button>
                         <h3>Pilih Durasi</h3>
                         <div class="pricing-grid">
-                            <div class="price-card" onclick="selectPrice(this, '45.000', '5 DAY')">
-                                <div class="check-icon-anim"><i class="fa-solid fa-check"></i></div>
-                                <span class="duration">5 DAY</span>
-                                <span class="original-price">IDR 50k</span>
-                                <span class="price">IDR 45k</span><span class="price-usd">($3)</span>
-                            </div>
-                            <div class="price-card" onclick="selectPrice(this, '67.500', '10 DAY')">
-                                <div class="check-icon-anim"><i class="fa-solid fa-check"></i></div>
-                                <span class="duration">10 DAY</span>
-                                <span class="original-price">IDR 75k</span>
-                                <span class="price">IDR 67.5k</span><span class="price-usd">($4)</span>
-                            </div>
-                            <div class="price-card" onclick="selectPrice(this, '135.000', '1 MONTH')">
-                                <div class="check-icon-anim"><i class="fa-solid fa-check"></i></div>
-                                <span class="duration">1 MONTH</span>
-                                <span class="original-price">IDR 150k</span>
-                                <span class="price">IDR 135k</span><span class="price-usd">($9)</span>
-                            </div>
-                            <div class="price-card" onclick="selectPrice(this, '297.000', '1 SEASON')">
-                                <div class="check-icon-anim"><i class="fa-solid fa-check"></i></div>
-                                <span class="duration">1 SEASON</span>
-                                <span class="original-price">IDR 330k</span>
-                                <span class="price">IDR 297k</span><span class="price-usd">($19)</span>
-                            </div>
+                            <div class="price-card" onclick="selectPrice(this, '45.000', '5 DAY')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">5 DAY</span><span class="original-price">IDR 50k</span><span class="price">IDR 45k</span><span class="price-usd">($3)</span></div>
+                            <div class="price-card" onclick="selectPrice(this, '67.500', '10 DAY')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">10 DAY</span><span class="original-price">IDR 75k</span><span class="price">IDR 67.5k</span><span class="price-usd">($4)</span></div>
+                            <div class="price-card" onclick="selectPrice(this, '135.000', '1 MONTH')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">1 MONTH</span><span class="original-price">IDR 150k</span><span class="price">IDR 135k</span><span class="price-usd">($9)</span></div>
+                            <div class="price-card" onclick="selectPrice(this, '297.000', '1 SEASON')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">1 SEASON</span><span class="original-price">IDR 330k</span><span class="price">IDR 297k</span><span class="price-usd">($19)</span></div>
                         </div>
                     </div>
-
                     <div id="brand-g3store" class="hidden">
                         <button class="btn-action btn-outline" onclick="openModal('g3')"><i class="fa-solid fa-list"></i> Lihat Fitur Lengkap G3STORE</button>
                         <h3>Pilih Durasi</h3>
                         <div class="pricing-grid">
-                            <div class="price-card" onclick="selectPrice(this, '27.000', '3 DAY')">
-                                <div class="check-icon-anim"><i class="fa-solid fa-check"></i></div>
-                                <span class="duration">3 DAY</span>
-                                <span class="original-price">IDR 30k</span>
-                                <span class="price">IDR 27k</span><span class="price-usd">($2)</span>
-                            </div>
-                            <div class="price-card" onclick="selectPrice(this, '40.500', '5 DAY')">
-                                <div class="check-icon-anim"><i class="fa-solid fa-check"></i></div>
-                                <span class="duration">5 DAY</span>
-                                <span class="original-price">IDR 45k</span>
-                                <span class="price">IDR 40.5k</span><span class="price-usd">($3)</span>
-                            </div>
-                            <div class="price-card" onclick="selectPrice(this, '67.500', '10 DAY')">
-                                <div class="check-icon-anim"><i class="fa-solid fa-check"></i></div>
-                                <span class="duration">10 DAY</span>
-                                <span class="original-price">IDR 75k</span>
-                                <span class="price">IDR 67.5k</span><span class="price-usd">($4)</span>
-                            </div>
-                            <div class="price-card" onclick="selectPrice(this, '135.000', '1 MONTH')">
-                                <div class="check-icon-anim"><i class="fa-solid fa-check"></i></div>
-                                <span class="duration">1 MONTH</span>
-                                <span class="original-price">IDR 150k</span>
-                                <span class="price">IDR 135k</span><span class="price-usd">($9)</span>
-                            </div>
+                            <div class="price-card" onclick="selectPrice(this, '27.000', '3 DAY')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">3 DAY</span><span class="original-price">IDR 30k</span><span class="price">IDR 27k</span><span class="price-usd">($2)</span></div>
+                            <div class="price-card" onclick="selectPrice(this, '40.500', '5 DAY')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">5 DAY</span><span class="original-price">IDR 45k</span><span class="price">IDR 40.5k</span><span class="price-usd">($3)</span></div>
+                            <div class="price-card" onclick="selectPrice(this, '67.500', '10 DAY')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">10 DAY</span><span class="original-price">IDR 75k</span><span class="price">IDR 67.5k</span><span class="price-usd">($4)</span></div>
+                            <div class="price-card" onclick="selectPrice(this, '135.000', '1 MONTH')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">1 MONTH</span><span class="original-price">IDR 150k</span><span class="price">IDR 135k</span><span class="price-usd">($9)</span></div>
                         </div>
                     </div>
-
-                    <div class="total-display">
-                        <span>Total Harga:</span>
-                        <span class="text-accent" id="gag-total">Rp 0</span>
-                    </div>
+                    <div class="total-display"><span>Total Harga:</span><span class="text-accent" id="gag-total">Rp 0</span></div>
                     <button class="btn-action" onclick="checkoutWa('gag')"><i class="fa-solid fa-cart-shopping"></i> Lanjut Pembayaran</button>
                 </section>
 
-                <!-- ALL GAMES -->
                 <section id="tab-allgames" class="section-card hidden">
-                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu</button>
-                    <h2>Buy Cheat All Game Mobile & Emulator <span>Click to Order</span></h2>
+                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> BACK TO MENU</button>
+                    <h2>Buy Cheat Game [Mobile & Emulator] <span>Click to Order</span></h2>
                     <div style="display:flex;gap:15px;margin-bottom:20px;font-size:0.85rem;color:var(--text-muted);background:var(--bg-input);padding:12px;border-radius:8px;justify-content:center;border:1px solid var(--border);">
                         <span class="flex-center" style="gap:8px;"><div class="status-dot dot-green"></div> Safe</span>
                         <span class="flex-center" style="gap:8px;"><div class="status-dot dot-yellow"></div> Risk</span>
@@ -2060,112 +1826,45 @@
                     <div class="game-grid" id="game-list-container"></div>
                 </section>
 
-                <!-- JOKGEN - WITH 10% DISCOUNT -->
                 <section id="tab-jokgen" class="section-card hidden">
-                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu</button>
-                    <h2>Jokgen Vip Gold And Glory <span class="promo-badge">DISKON 10%</span></h2>
+                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> BACK TO MENU</button>
+                    <h2>Jokgen Vip Game [Gold And Glory]<span class="promo-badge">DISKON 10%</span></h2>
                     <div class="note-box">
                         <strong style="color:var(--accent);">Note Penting:</strong>
                         <ul>
-                            <li>Mati kesalahan buyer? (No Rematch)</li>
-                            <li>Mati kesalahan Worker? (FULL 100% REMATCH)</li>
-                            <li>Loot All Sampe Tas Penuh.</li>
-                            <li>Set Dibawain worker (Bisa 3x Set).</li>
-                            <li>Minimal Rating Equipment (25.000).</li>
-                            <li>Jangan Looting Duluan jika item tidak mau pecah.</li>
+                            <li>Mati kesalahan buyer? (No Rematch)</li><li>Mati kesalahan Worker? (FULL 100% REMATCH)</li>
+                            <li>Loot All Sampe Tas Penuh.</li><li>Set Dibawain worker (Bisa 3x Set).</li>
+                            <li>Minimal Rating Equipment (25.000).</li><li>Jangan Looting Duluan jika item tidak mau pecah.</li>
                         </ul>
                     </div>
                     <h3>Pilih Map</h3>
                     <div class="map-list">
-                        <div class="map-item">
-                            <label class="cb-container">
-                                <input type="checkbox" class="jokgen-check" value="8100" data-name="Map Challenge">
-                                <span class="checkmark"></span>
-                                <span class="map-name">Map Challenge</span>
-                            </label>
-                            <span class="map-price"><span class="map-original">9k</span>8.1k</span>
-                        </div>
-                        <div class="map-item">
-                            <label class="cb-container">
-                                <input type="checkbox" class="jokgen-check" value="10800" data-name="Map Inferno">
-                                <span class="checkmark"></span>
-                                <span class="map-name">Map Inferno</span>
-                            </label>
-                            <span class="map-price"><span class="map-original">12k</span>10.8k</span>
-                        </div>
-                        <div class="map-item">
-                            <label class="cb-container">
-                                <input type="checkbox" class="jokgen-check" value="9000" data-name="Map Dcp Challenge">
-                                <span class="checkmark"></span>
-                                <span class="map-name">Map Dcp Challenge</span>
-                            </label>
-                            <span class="map-price"><span class="map-original">10k</span>9k</span>
-                        </div>
+                        <div class="map-item"><label class="cb-container"><input type="checkbox" class="jokgen-check" value="8100" data-name="Map Challenge"><span class="checkmark"></span><span class="map-name">Map Challenge</span></label><span class="map-price"><span class="map-original">9k</span>8.1k</span></div>
+                        <div class="map-item"><label class="cb-container"><input type="checkbox" class="jokgen-check" value="10800" data-name="Map Inferno"><span class="checkmark"></span><span class="map-name">Map Inferno</span></label><span class="map-price"><span class="map-original">12k</span>10.8k</span></div>
+                        <div class="map-item"><label class="cb-container"><input type="checkbox" class="jokgen-check" value="9000" data-name="Map Dcp Challenge"><span class="checkmark"></span><span class="map-name">Map Dcp Challenge</span></label><span class="map-price"><span class="map-original">10k</span>9k</span></div>
                     </div>
-                    <div class="input-group">
-                        <label>Jumlah Match</label>
-                        <input type="number" id="jokgen-matches" value="1" min="1" oninput="calculateJokgen()">
-                    </div>
-                    <div class="total-display">
-                        <span>Total Estimasi:</span>
-                        <span class="text-accent" id="jokgen-total">Rp 0</span>
-                    </div>
-                    <div class="input-group">
-                        <label>Username Game (Wajib diisi)</label>
-                        <input type="text" id="jokgen-ign" placeholder="Masukkan Username Game">
-                    </div>
+                    <div class="input-group"><label>Jumlah Match</label><input type="number" id="jokgen-matches" value="1" min="1" oninput="calculateJokgen()"></div>
+                    <div class="total-display"><span>Total Estimasi:</span><span class="text-accent" id="jokgen-total">Rp 0</span></div>
+                    <div class="input-group"><label>Username Game (Wajib diisi)</label><input type="text" id="jokgen-ign" placeholder="Masukkan Username Game"></div>
                     <button class="btn-action" onclick="checkoutWa('jokgen')"><i class="fa-solid fa-cart-shopping"></i> Order Jokgen</button>
                 </section>
 
-                <!-- ACC -->
                 <section id="tab-acc" class="section-card hidden">
-                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu</button>
-                    <h2>Buy Account Gold And Glory</h2>
+                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> BACK TO MENU</button>
+                    <h2>Buy Account Game [Gold And Glory]</h2>
                     <p style="margin-bottom:25px;color:var(--text-muted);">Pilih level akun yang diinginkan, harga akan dikonfirmasi via WhatsApp.</p>
-                    
                     <div class="acc-grid" id="acc-level-container">
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 8')">
-                            <i class="fa-solid fa-user-shield"></i>
-                            <span>Level 8</span>
-                        </div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 9')">
-                            <i class="fa-solid fa-shield-halved"></i>
-                            <span>Level 9</span>
-                        </div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 10')">
-                            <i class="fa-solid fa-star"></i>
-                            <span>Level 10</span>
-                        </div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 11')">
-                            <i class="fa-solid fa-award"></i>
-                            <span>Level 11</span>
-                        </div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 12')">
-                            <i class="fa-solid fa-trophy"></i>
-                            <span>Level 12</span>
-                        </div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 13')">
-                            <i class="fa-solid fa-crown"></i>
-                            <span>Level 13</span>
-                        </div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 14')">
-                            <i class="fa-solid fa-gem"></i>
-                            <span>Level 14</span>
-                        </div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 15')">
-                            <i class="fa-solid fa-fire"></i>
-                            <span>Level 15</span>
-                        </div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 16')">
-                            <i class="fa-solid fa-bolt"></i>
-                            <span>Level 16</span>
-                        </div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 17')">
-                            <i class="fa-solid fa-dragon"></i>
-                            <span>Level 17</span>
-                        </div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 8')"><i class="fa-solid fa-user-shield"></i><span>Level 8</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 9')"><i class="fa-solid fa-user-shield"></i><span>Level 9</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 10')"><i class="fa-solid fa-user-shield"></i><span>Level 10</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 11')"><i class="fa-solid fa-user-shield"></i><span>Level 11</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 12')"><i class="fa-solid fa-user-shield"></i><span>Level 12</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 13')"><i class="fa-solid fa-user-shield"></i><span>Level 13</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 14')"><i class="fa-solid fa-crown"></i><span>Level 14</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 15')"><i class="fa-solid fa-crown"></i><span>Level 15</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 16')"><i class="fa-solid fa-crown"></i><span>Level 16</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 17')"><i class="fa-solid fa-crown"></i><span>Level 17</span></div>
                     </div>
-
                     <button class="btn-action" onclick="checkoutWa('acc')"><i class="fa-solid fa-cart-shopping"></i> Tanya Harga & Beli</button>
                 </section>
             </div>
@@ -2176,83 +1875,51 @@
             document.getElementById('main-wrapper').innerHTML = _0xHTML;
             initEvents();
             renderGameList();
-            
             updateCountdown();
             setInterval(updateCountdown, 1000);
         };
 
-        function initEvents() {
-            document.querySelectorAll('.jokgen-check').forEach(cb => cb.addEventListener('change', calculateJokgen));
-        }
+        function initEvents() { document.querySelectorAll('.jokgen-check').forEach(cb => cb.addEventListener('change', calculateJokgen)); }
 
         function closeIntro() {
             const el = document.getElementById('intro-overlay');
             el.style.transition = "opacity 0.5s ease";
             el.style.opacity = "0";
-            setTimeout(() => {
-                el.style.display = 'none';
-            }, 500);
+            setTimeout(() => { el.style.display = 'none'; }, 500);
         }
 
         function openPage(id) {
             document.getElementById('main-menu').classList.add('hidden');
-            const sections = document.querySelectorAll('section');
-            sections.forEach(sec => sec.classList.add('hidden'));
-            
+            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
             const target = document.getElementById(id);
             target.classList.remove('hidden');
             window.scrollTo(0, 0);
-            
-            target.classList.remove('fade-in-up');
-            void target.offsetWidth;
-            target.classList.add('fade-in-up');
+            target.classList.remove('fade-in-up'); void target.offsetWidth; target.classList.add('fade-in-up');
         }
 
         function goHome() {
-            const sections = document.querySelectorAll('section');
-            sections.forEach(sec => sec.classList.add('hidden'));
-            
+            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
             const menu = document.getElementById('main-menu');
             menu.classList.remove('hidden');
             window.scrollTo(0, 0);
-            
-            menu.classList.remove('fade-in-up');
-            void menu.offsetWidth;
-            menu.classList.add('fade-in-up');
+            menu.classList.remove('fade-in-up'); void menu.offsetWidth; menu.classList.add('fade-in-up');
         }
 
         function selectBrand(brand, btn) {
-            _0xSTATE.gag.brand = brand;
-            _0xSTATE.gag.price = 0;
+            _0xSTATE.gag.brand = brand; _0xSTATE.gag.price = 0;
             document.getElementById('gag-total').innerText = 'Rp 0';
-            
-            document.querySelectorAll('.price-card').forEach(c => {
-                c.classList.remove('selected');
-            });
-
+            document.querySelectorAll('.price-card').forEach(c => c.classList.remove('selected'));
             document.querySelectorAll('.brand-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             const deadly = document.getElementById('brand-deadly');
             const g3 = document.getElementById('brand-g3store');
-            
-            if(brand === 'deadly') {
-                g3.classList.add('hidden');
-                deadly.classList.remove('hidden');
-            } else {
-                deadly.classList.add('hidden');
-                g3.classList.remove('hidden');
-            }
+            if(brand === 'deadly') { g3.classList.add('hidden'); deadly.classList.remove('hidden'); }
+            else { deadly.classList.add('hidden'); g3.classList.remove('hidden'); }
         }
 
         function selectPrice(el, price, duration) {
-            const container = el.parentElement;
-            container.querySelectorAll('.price-card').forEach(c => {
-                c.classList.remove('selected');
-            });
-            
+            el.parentElement.querySelectorAll('.price-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
-            
             _0xSTATE.gag.price = parseInt(price.replace('.',''));
             _0xSTATE.gag.priceStr = price.replace('.', '');
             _0xSTATE.gag.duration = duration;
@@ -2260,21 +1927,16 @@
         }
 
         function renderGameList() {
-            const grid = document.getElementById('game-list-container');
-            if(!grid) return;
+            const grid = document.getElementById('game-list-container'); if(!grid) return;
             let html = '';
             _0xCONFIG.games.forEach((game, index) => {
                 let c = game.status === 'green' ? 'dot-green' : (game.status === 'yellow' ? 'dot-yellow' : 'dot-red');
-                let delay = index * 0.05;
-                html += `<div class="game-item" onclick="orderGame('${game.name}')" style="animation-delay: ${delay}s"><div class="status-dot ${c}"></div><span class="game-name">${game.name}</span></div>`;
+                html += `<div class="game-item" onclick="orderGame('${game.name}')" style="animation-delay: ${index * 0.05}s"><div class="status-dot ${c}"></div><span class="game-name">${game.name}</span></div>`;
             });
             grid.innerHTML = html;
         }
 
-        function orderGame(n) {
-            const t = `Halo Admin UjayyStore, saya ingin membeli Cheat untuk game *${n}*. Mohon infonya.`;
-            window.open(`https://wa.me/${_0xCONFIG.wa}?text=${encodeURIComponent(t)}`, '_blank');
-        }
+        function orderGame(n) { window.open(`https://wa.me/${_0xCONFIG.wa}?text=${encodeURIComponent(`Halo Admin, saya ingin membeli Cheat untuk game *${n}*. Mohon infonya.`)}`, '_blank'); }
 
         function calculateJokgen() {
             let p = 0;
@@ -2293,7 +1955,6 @@
         }
 
         const _featDeadly = `<div class="feature-section"><span class="feature-cat">ESP & ESP Settings</span><div class="feature-grid"><div class="feature-item">Configuration Manager</div><div class="feature-item">Enable Bypass + Anti FC</div><div class="feature-item">Force Exit Match</div><div class="feature-item">Enable Functions</div><div class="feature-item">Draw Box</div><div class="feature-item">Draw Line</div><div class="feature-item">Draw Info Player</div></div></div><div class="feature-section"><span class="feature-cat">Monster ESP</span><div class="feature-grid"><div class="feature-item">Draw Box Monster</div><div class="feature-item">Draw Line Monster</div><div class="feature-item">Show Info</div></div></div><div class="feature-section"><span class="feature-cat">Aimbot & Aim Settings</span><div class="feature-grid"><div class="feature-item">Aim Activation</div><div class="feature-item">Enable Aim Bot</div><div class="feature-item">Silent Aim</div><div class="feature-item">Auto Headshot</div><div class="feature-item">Force Headshot</div><div class="feature-item">Target & Range</div><div class="feature-item">Target Type</div><div class="feature-item">FOV Radius</div><div class="feature-item">Max Range</div><div class="feature-item">Show FOV Circle</div><div class="feature-item">Show Aim Line</div></div></div><div class="feature-section"><span class="feature-cat">Memory Hacks</span><div class="feature-grid"><div class="feature-item">Level 50 (Lobby)</div><div class="feature-item">Multi Damage</div><div class="feature-item">Movement</div><div class="feature-item">No Collision</div><div class="feature-item">Unlimited Jump</div><div class="feature-item">Guncangan Maut</div><div class="feature-item">Crouch Jump</div><div class="feature-item">Speed Settings</div><div class="feature-item">Crouch Speed</div><div class="feature-item">Walk Speed</div></div></div><div class="feature-section"><span class="feature-cat">Other Features</span><div class="feature-grid"><div class="feature-item">Infinite Durability</div><div class="feature-item">Enable Entity Size</div><div class="feature-item">Enable FOV</div><div class="feature-item">Force Skill Enable</div><div class="feature-item">Disable Skill Hold</div><div class="feature-item" style="opacity:0.5;">Unlimited Bag (Maintenance)</div></div></div>`;
-
         const _featG3 = `<div class="feature-section"><span class="feature-cat">Combat & Aim</span><div class="feature-grid"><div class="feature-item">Silent Aim</div><div class="feature-item">Magic Bullet</div><div class="feature-item">Auto Headshoot</div><div class="feature-item">Attack Speed</div><div class="feature-item">Arrow Piercing (Active)</div><div class="feature-item">No Recoil Crossbow</div></div></div><div class="feature-section"><span class="feature-cat">Movement & Character</span><div class="feature-grid"><div class="feature-item">Speed Booster</div><div class="feature-item">Speed Berdiri/Jongkok</div><div class="feature-item">Jump Blink (High)</div><div class="feature-item">Player Height</div><div class="feature-item">Anti Stun</div><div class="feature-item">No Collision</div></div></div><div class="feature-section"><span class="feature-cat">Visuals & ESP</span><div class="feature-grid"><div class="feature-item">ESP</div><div class="feature-item">FOV Changer</div><div class="feature-item">Player List</div><div class="feature-item">Item List</div></div></div><div class="feature-section"><span class="feature-cat">Utility & Misc</span><div class="feature-grid"><div class="feature-item">Instant Loot</div><div class="feature-item">Unlock Trade (Lv 50)</div><div class="feature-item">Skip Search</div><div class="feature-item">Force Exit Match</div><div class="feature-item">Bypass Anti Kick</div></div></div>`;
 
         function openModal(t) {
@@ -2305,15 +1966,9 @@
             else if(t==='g3') { ttl.innerHTML=`<i class="fa-solid fa-store"></i> Fitur: G3 Store`; bd.innerHTML=_featG3; }
         }
 
-        function closeModal(f) {
-            document.getElementById('feature-modal').classList.remove('active');
-        }
+        function closeModal(f) { document.getElementById('feature-modal').classList.remove('active'); }
 
-        function joinAll() {
-            if(confirm("Apakah Anda yakin ingin membuka semua link sekaligus? Pastikan browser mengizinkan popup.")) {
-                _0xCONFIG.groups.forEach(l => window.open(l, '_blank'));
-            }
-        }
+        function joinAll() { if(confirm("Apakah Anda yakin ingin membuka semua link sekaligus? Pastikan browser mengizinkan popup.")) { _0xCONFIG.groups.forEach(l => window.open(l, '_blank')); } }
 
         function checkoutWa(type) {
             let msg = "";
