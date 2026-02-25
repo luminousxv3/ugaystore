@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>UjayyStore - Promo Ramadhan 2026</title>
+    <title>UjayyStore - Promo 10% 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -643,14 +643,6 @@
 
         .brand-btn.active i {
             color: var(--accent);
-        }
-        
-        /* Style for disabled brand button */
-        .brand-btn.disabled-maintenance {
-            opacity: 0.6;
-            cursor: not-allowed;
-            pointer-events: none;
-            background: rgba(255, 255, 255, 0.05);
         }
 
         .pricing-grid {
@@ -1462,21 +1454,6 @@
         .contact-note strong {
             color: var(--primary-glow);
         }
-        
-        /* Maintenance Box Style */
-        .maintenance-box {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px dashed #ef4444;
-            border-radius: var(--radius);
-            padding: 30px;
-            text-align: center;
-            color: #fca5a5;
-        }
-        .maintenance-box i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #ef4444;
-        }
 
         @media (max-width: 400px) {
             .countdown-display {
@@ -1660,8 +1637,7 @@
             ]
         };
 
-        // Changed default state to g3store because deadly is maintenance
-        let _0xSTATE = { gag: { brand: 'g3store', price: 0, priceStr: '', duration: '' }, acc: { level: null } };
+        let _0xSTATE = { gag: { brand: 'deadly', price: 0, priceStr: '', duration: '' }, acc: { level: null } };
 
         // === COUNTDOWN ===
         const targetDate = new Date('2026-03-31T23:59:59+07:00').getTime();
@@ -1713,7 +1689,7 @@
         const _0xHTML = `
             <div id="intro-overlay">
                 <div class="intro-box scale-in">
-                    <div class="intro-header">⚠️INFORMATION⚠️</div>
+                    <div class="intro-header">Warning / Information</div>
                     <div class="intro-body">
                         <p>🔈 Playing with any type of cheats is only for fun and 100% your responsibility, whatever the brand of the hack, whatever its developer, all and no exception lead to a ban.</p>
                         
@@ -1745,8 +1721,8 @@
 
             <header>
                 <div class="container text-center">
-                    <div class="logo" onclick="goHome()">Ujayy.Store</div>
-                    <div class="logo-subtitle">Promo Spesial Ramadhan 2026 <span class="promo-badge">DISKON 10%</span></div>
+                    <div class="logo" onclick="goHome()">UjayyStore</div>
+                    <div class="logo-subtitle">Promo Spesial 2026 <span class="promo-badge">DISKON 10%</span></div>
                 </div>
             </header>
 
@@ -1783,17 +1759,17 @@
                     </div>
 
                     <div class="menu-container">
-                        <button class="menu-item" onclick="openPage('tab-groups')"><i class="fa-solid fa-users"></i><span>Join All Group & Channel [Click this]</span></button>
-                        <button class="menu-item" onclick="openPage('tab-gag')"><i class="fa-solid fa-gamepad"></i><span>Buy Cheat Game [Gold And Glory]</span></button>
-                        <button class="menu-item" onclick="openPage('tab-allgames')"><i class="fa-solid fa-layer-group"></i><span>Buy Cheat Game [Mobile & Emulator]</span></button>
-                        <button class="menu-item" onclick="openPage('tab-jokgen')"><i class="fa-solid fa-khanda"></i><span>Jokgen Vip Game [Gold And Glory]</span></button>
-                        <button class="menu-item" onclick="openPage('tab-acc')"><i class="fa-solid fa-id-card"></i><span>Buy Account Game [Gold And Glory]</span></button>
+                        <button class="menu-item" onclick="openPage('tab-groups')"><i class="fa-solid fa-users"></i><span>Join All Group & Channel</span></button>
+                        <button class="menu-item" onclick="openPage('tab-gag')"><i class="fa-solid fa-gamepad"></i><span>Buy Cheat Gold And Glory</span></button>
+                        <button class="menu-item" onclick="openPage('tab-allgames')"><i class="fa-solid fa-layer-group"></i><span>Buy Cheat All Game Mobile & Emulator</span></button>
+                        <button class="menu-item" onclick="openPage('tab-jokgen')"><i class="fa-solid fa-khanda"></i><span>Jokgen Vip Gold And Glory</span></button>
+                        <button class="menu-item" onclick="openPage('tab-acc')"><i class="fa-solid fa-id-card"></i><span>Buy Account Gold And Glory</span></button>
                     </div>
                     <footer><p>&copy; 2026 UjayyStore. All rights reserved.</p></footer>
                 </div>
 
                 <section id="tab-groups" class="section-card hidden">
-                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> BACK TO MENU</button>
+                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu</button>
                     <div class="profile-header" style="margin-bottom:20px;"><h2 style="border:none; justify-content:center;">Be A Smart Buyer!</h2><p style="color:var(--text-muted);">Official Social Media Links.</p></div>
                     <button class="btn-action" onclick="joinAll()"><i class="fa-solid fa-rocket"></i> JOIN ALL GROUPS</button>
                     <p style="text-align:center;font-size:0.8rem;color:var(--text-muted);margin-top:10px;margin-bottom:20px;">*Aktifkan izin popup agar semua link terbuka.</p>
@@ -1809,25 +1785,23 @@
                 </section>
 
                 <section id="tab-gag" class="section-card hidden">
-                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> BACK TO MENU</button>
-                    <h2>Buy Cheat Game [Gold And Glory]<span class="promo-badge">DISKON 10%</span></h2>
-                    
+                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu</button>
+                    <h2>Buy Cheat Gold And Glory <span class="promo-badge">DISKON 10%</span></h2>
                     <div class="brand-toggle">
-                        <button class="brand-btn disabled-maintenance" disabled><i class="fa-solid fa-skull"></i> 4 deadly sins <small style="display:block; font-size:0.6rem; color:#ef4444;">MAINTENANCE</small></button>
-                        <button class="brand-btn active" onclick="selectBrand('g3store', this)"><i class="fa-solid fa-store"></i> G3 Store</button>
+                        <button class="brand-btn active" onclick="selectBrand('deadly', this)"><i class="fa-solid fa-skull"></i> 4 deadly sins</button>
+                        <button class="brand-btn" onclick="selectBrand('g3store', this)"><i class="fa-solid fa-store"></i> G3 Store</button>
                     </div>
-                    
-                    <!-- DEADLY SINS SECTION: CHANGED TO MAINTENANCE -->
-                    <div id="brand-deadly" class="hidden">
-                        <div class="maintenance-box">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                            <h3 style="margin-bottom: 5px;">SEDANG MAINTENANCE</h3>
-                            <p style="font-size: 0.9rem; opacity: 0.8;">4 Deadly Sins saat ini sedang dalam proses perbaikan atau update. Silakan gunakan G3 Store atau hubungi admin untuk info lebih lanjut.</p>
+                    <div id="brand-deadly">
+                        <button class="btn-action btn-outline" onclick="openModal('deadly')"><i class="fa-solid fa-list"></i> Lihat Fitur Lengkap 4 deadly sins</button>
+                        <h3>Pilih Durasi</h3>
+                        <div class="pricing-grid">
+                            <div class="price-card" onclick="selectPrice(this, '45.000', '5 DAY')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">5 DAY</span><span class="original-price">IDR 50k</span><span class="price">IDR 45k</span><span class="price-usd">($3)</span></div>
+                            <div class="price-card" onclick="selectPrice(this, '67.500', '10 DAY')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">10 DAY</span><span class="original-price">IDR 75k</span><span class="price">IDR 67.5k</span><span class="price-usd">($4)</span></div>
+                            <div class="price-card" onclick="selectPrice(this, '135.000', '1 MONTH')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">1 MONTH</span><span class="original-price">IDR 150k</span><span class="price">IDR 135k</span><span class="price-usd">($9)</span></div>
+                            <div class="price-card" onclick="selectPrice(this, '297.000', '1 SEASON')"><div class="check-icon-anim"><i class="fa-solid fa-check"></i></div><span class="duration">1 SEASON</span><span class="original-price">IDR 330k</span><span class="price">IDR 297k</span><span class="price-usd">($19)</span></div>
                         </div>
                     </div>
-                    
-                    <!-- G3 STORE SECTION: NOW DEFAULT ACTIVE -->
-                    <div id="brand-g3store">
+                    <div id="brand-g3store" class="hidden">
                         <button class="btn-action btn-outline" onclick="openModal('g3')"><i class="fa-solid fa-list"></i> Lihat Fitur Lengkap G3STORE</button>
                         <h3>Pilih Durasi</h3>
                         <div class="pricing-grid">
@@ -1842,8 +1816,8 @@
                 </section>
 
                 <section id="tab-allgames" class="section-card hidden">
-                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> BACK TO MENU</button>
-                    <h2>Buy Cheat Game [Mobile & Emulator] <span>•</span></h2>
+                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu</button>
+                    <h2>Buy Cheat All Game Mobile & Emulator <span>Click to Order</span></h2>
                     <div style="display:flex;gap:15px;margin-bottom:20px;font-size:0.85rem;color:var(--text-muted);background:var(--bg-input);padding:12px;border-radius:8px;justify-content:center;border:1px solid var(--border);">
                         <span class="flex-center" style="gap:8px;"><div class="status-dot dot-green"></div> Safe</span>
                         <span class="flex-center" style="gap:8px;"><div class="status-dot dot-yellow"></div> Risk</span>
@@ -1853,8 +1827,8 @@
                 </section>
 
                 <section id="tab-jokgen" class="section-card hidden">
-                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> BACK TO MENU</button>
-                    <h2>Jokgen Vip Game [Gold And Glory]<span class="promo-badge">DISKON 10%</span></h2>
+                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu</button>
+                    <h2>Jokgen Vip Gold And Glory <span class="promo-badge">DISKON 10%</span></h2>
                     <div class="note-box">
                         <strong style="color:var(--accent);">Note Penting:</strong>
                         <ul>
@@ -1876,20 +1850,20 @@
                 </section>
 
                 <section id="tab-acc" class="section-card hidden">
-                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> BACK TO MENU</button>
-                    <h2>Buy Account Game [Gold And Glory]</h2>
+                    <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu</button>
+                    <h2>Buy Account Gold And Glory</h2>
                     <p style="margin-bottom:25px;color:var(--text-muted);">Pilih level akun yang diinginkan, harga akan dikonfirmasi via WhatsApp.</p>
                     <div class="acc-grid" id="acc-level-container">
                         <div class="acc-item" onclick="selectAccLevel(this, 'Level 8')"><i class="fa-solid fa-user-shield"></i><span>Level 8</span></div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 9')"><i class="fa-solid fa-user-shield"></i><span>Level 9</span></div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 10')"><i class="fa-solid fa-user-shield"></i><span>Level 10</span></div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 11')"><i class="fa-solid fa-user-shield"></i><span>Level 11</span></div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 12')"><i class="fa-solid fa-user-shield"></i><span>Level 12</span></div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 13')"><i class="fa-solid fa-user-shield"></i><span>Level 13</span></div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 14')"><i class="fa-solid fa-crown"></i><span>Level 14</span></div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 15')"><i class="fa-solid fa-crown"></i><span>Level 15</span></div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 16')"><i class="fa-solid fa-crown"></i><span>Level 16</span></div>
-                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 17')"><i class="fa-solid fa-crown"></i><span>Level 17</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 9')"><i class="fa-solid fa-shield-halved"></i><span>Level 9</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 10')"><i class="fa-solid fa-star"></i><span>Level 10</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 11')"><i class="fa-solid fa-award"></i><span>Level 11</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 12')"><i class="fa-solid fa-trophy"></i><span>Level 12</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 13')"><i class="fa-solid fa-crown"></i><span>Level 13</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 14')"><i class="fa-solid fa-gem"></i><span>Level 14</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 15')"><i class="fa-solid fa-fire"></i><span>Level 15</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 16')"><i class="fa-solid fa-bolt"></i><span>Level 16</span></div>
+                        <div class="acc-item" onclick="selectAccLevel(this, 'Level 17')"><i class="fa-solid fa-dragon"></i><span>Level 17</span></div>
                     </div>
                     <button class="btn-action" onclick="checkoutWa('acc')"><i class="fa-solid fa-cart-shopping"></i> Tanya Harga & Beli</button>
                 </section>
@@ -1962,7 +1936,7 @@
             grid.innerHTML = html;
         }
 
-        function orderGame(n) { window.open(`https://wa.me/${_0xCONFIG.wa}?text=${encodeURIComponent(`Halo Admin, saya ingin membeli Cheat untuk game *${n}*. Mohon infonya.`)}`, '_blank'); }
+        function orderGame(n) { window.open(`https://wa.me/${_0xCONFIG.wa}?text=${encodeURIComponent(`Halo Admin UjayyStore, saya ingin membeli Cheat untuk game *${n}*. Mohon infonya.`)}`, '_blank'); }
 
         function calculateJokgen() {
             let p = 0;
